@@ -4,24 +4,16 @@ import "./App.css";
 import Lane from "./Lane";
 
 // The default data
-const DATA = [
-  {
-    name: "Winnie",
-    tasks: ["buy eggs", "buy milk"],
-  },
-  {
-    name: "Brad",
-    tasks: ["buy meat", "buy vegi"],
-  },
-  {
-    name: "Bob",
-    tasks: ["buy meat", "buy vegi"],
-  },
-  {
-    name: "Thomas",
-    tasks: ["buy meat", "buy vegi"],
-  },
-];
+// Note 1: the key can later be replaced by employee_id (instead
+// of employee_name)
+// Note 2: data should Not be too nested (otherwise, hard to make
+// a copy)
+const DATA = {
+  Winnie: ["buy eggs", "buy milk"],
+  Brad: ["buy meat", "buy vegi"],
+  Bob: ["buy meat", "buy vegi"],
+  Thomas: ["buy meat", "buy vegi"],
+};
 
 class App extends Component {
   constructor(props) {
@@ -29,41 +21,42 @@ class App extends Component {
     this.state = {
       // An array of objects
       data: DATA, // Value as the default data
-      newTasks: {}, // Key as person's name, val as new task
+      newTaskByName: {},
     };
   }
 
   // About: handle change, on typing a new task
   handleChange = (event, name) => {
     const newTask = event.target.value;
-    const copyOfState = { ...this.state.newTasks };
-    //
-    copyOfState[name] = newTask;
-    //
+    const copyOfNewTasksByName = { ...this.state.newTaskByName };
+
+    // Update the copy of this state
+    copyOfNewTasksByName[name] = newTask;
+
+    // Update this state
     this.setState({
-      newTasks: copyOfState,
+      newTaskByName: copyOfNewTasksByName,
     });
   };
 
-  // About: after click, add a task to the person (in state, data)
+  // About: after click, add a new task to the person
   handleClickToAddTask = (name) => {
-    // Get the new task
-    const newTask = this.state.newTasks[name];
+    const newTask = this.state.newTaskByName[name];
+    console.log(`### [Click] name is ${name}`);
 
-    //
-    const copyOfState = [...this.state.data];
-
-    // Step: update the copy of the state
-    for (const obj of copyOfState) {
-      if (obj.name === name) {
-        obj.tasks.push(newTask);
-        break;
-      }
+    // Make a deep copy of the state, data
+    // const data = { ...this.state.data };
+    const copyOfData = {};
+    for (const key of Object.keys(this.state.data)) {
+      copyOfData[key] = [...this.state.data[key]];
     }
 
-    // Step: update the state
+    // Add the new task, to the person
+    copyOfData[name].push(newTask);
+
+    // Update the state, data
     this.setState({
-      data: copyOfState,
+      data: copyOfData,
     });
   };
 
@@ -73,10 +66,10 @@ class App extends Component {
     return (
       <div>
         <div className="Lane-List">
-          {data.map((item) => (
+          {Object.keys(data).map((name) => (
             <Lane
-              name={item.name}
-              tasks={item.tasks}
+              name={name}
+              tasks={data[name]}
               handleChange={this.handleChange}
               handleClickToAddTask={this.handleClickToAddTask}
             />
