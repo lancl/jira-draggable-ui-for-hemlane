@@ -1,10 +1,10 @@
-# Workflow App
+# A Task-Tracking App
 
-A very simplified version of JIRA.
+About: a very simplified version of apps such as JIRA and Trello.
 
 Time limit: 50 minutes
 
-## The Specs
+## Part 1: The Specs (Input)
 
 1. CSS: same width for the 4 lanes; 25px margin
 2. Feature: add a card/task
@@ -16,17 +16,31 @@ It is provided by Bihn (SWE on the team).
 
 ![Screenshot](./screenshot-ui-specs.png)
 
-## My Components
+## Part 2: My Work (Output)
 
-### App.js (a class)
+### 2(a) My Components, and Learning(s)
 
-### Lane.js
+#### App.js (a class)
 
-## My screenshots (per progress)
+About: main/class component, where the states live.
 
-### For spec 1 and spec 2
+My data-structure design for `this.state.data`:
 
-![](./screenshot-1.png)
+- Key is a person's name, val is an array of the person's task(s)
+
+- Sample data: `const DATA = {Winnie: ["buy eggs", "buy milk"]}, Brad: ["buy meat", "buy vegi"]`
+
+- Note: the key can later be replaced by employee_id, which is surely unique (instead of employee_name)
+
+- Note: data should Not be too nested; otherwise, it will be hard for React's state management (Not mutable)
+
+#### Lane.js
 
 About: 1 lane per person; each lane has a list of tasks/cards.
 Note that for entering a new task, B suggested using `Window.promp`, whereas I used `<input>`.
+
+### 2(b): My screenshots (per progress)
+
+For spec 1 and spec 2
+
+![](./screenshot-1.png)

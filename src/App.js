@@ -3,11 +3,6 @@ import "./App.css";
 
 import Lane from "./Lane";
 
-// The default data
-// Note 1: the key can later be replaced by employee_id (instead
-// of employee_name)
-// Note 2: data should Not be too nested (otherwise, hard to make
-// a copy)
 const DATA = {
   Winnie: ["buy eggs", "buy milk"],
   Brad: ["buy meat", "buy vegi"],
@@ -44,7 +39,7 @@ class App extends Component {
     const newTask = this.state.newTaskByName[name];
     console.log(`### [Click] name is ${name}`);
 
-    // Make a deep copy of the state, data
+    // Note: make a Deep copy of the state, data
     // const data = { ...this.state.data };
     const copyOfData = {};
     for (const key of Object.keys(this.state.data)) {
