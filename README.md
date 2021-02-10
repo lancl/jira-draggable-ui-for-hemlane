@@ -26,7 +26,7 @@ It is provided by Bihn (SWE on the team).
 
 ### For spec 1 and spec 2
 
-![](./screenshot-1)
+![](./screenshot-1.png)
 
 About: 1 lane per person; each lane has a list of tasks/cards.
 Note that for entering a new task, B suggested using `Window.promp`, whereas I used `<input>`.
