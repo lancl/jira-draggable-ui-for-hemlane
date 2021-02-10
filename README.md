@@ -4,6 +4,18 @@ A very simplified version of JIRA.
 
 Time limit: 50 minutes
 
+## The Specs
+
+1. CSS: same width for the 4 lanes; 25px margin
+2. Feature: add a card/task
+3. Feature: shift task from 1 person to another
+
+### Screenshot of UI
+
+It is provided by Bihn (SWE on the team).
+
+![Screenshot](./screenshot-ui-specs.png)
+
 ## Components
 
 - App.js (a class): where the states live
