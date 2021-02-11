@@ -3,19 +3,28 @@ import "./App.css";
 
 import Lane from "./Lane";
 
-const DATA = {
+const DEFAULT_TASK_LIST = {
   Winnie: ["buy eggs", "buy milk"],
   Brad: ["buy meat", "buy vegi"],
   Bob: ["buy meat", "buy vegi"],
   Thomas: ["buy meat", "buy vegi"],
 };
 
+// A helper function: return a deep copy of the input state
+const deepCopyOfTaskList = (state) => {
+  const output = {};
+  for (const key of Object.keys(state)) {
+    output[key] = [...state[key]];
+  }
+  return output;
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // An array of objects
-      data: DATA, // Value as the default data
+      taskListByName: DEFAULT_TASK_LIST, // Start with the default data
+      nameList: ["Winnie", "Brad", "Bob", "Thomas"], // Order of the lanes
       newTaskByName: {},
     };
   }
@@ -36,37 +45,59 @@ class App extends Component {
 
   // About: after click, add a new task to the person
   handleClickToAddTask = (name) => {
-    const newTask = this.state.newTaskByName[name];
-    console.log(`### [Click] name is ${name}`);
-
-    // Note: make a Deep copy of the state, data
-    // const data = { ...this.state.data };
-    const copyOfData = {};
-    for (const key of Object.keys(this.state.data)) {
-      copyOfData[key] = [...this.state.data[key]];
-    }
+    const { newTaskByName, taskListByName } = this.state;
+    const newTask = newTaskByName[name];
+    const copyOfTaskList = deepCopyOfTaskList(taskListByName);
 
     // Add the new task, to the person
-    copyOfData[name].push(newTask);
+    copyOfTaskList[name].push(newTask);
 
-    // Update the state, data
+    // Update the state, taskList
     this.setState({
-      data: copyOfData,
+      taskListByName: copyOfTaskList,
+    });
+  };
+
+  // About: handle click on the left or right arrow of a task card
+  handleClickOnArrow = (name, task, tIndex, direction) => {
+    const { nameList, taskListByName } = this.state;
+    console.log(`[Click] direction is ${direction}`);
+    console.log(`### name is ${name}, task is ${task}`);
+
+    // Step: check if input name has a left or right neighbor
+    const nIndex = nameList.indexOf(name);
+    // If: no left or right neighbor
+    if (direction === "left" && nIndex === 0) return;
+    if (direction === "right" && nIndex === nameList.length - 1) return;
+
+    // Else: get neighbor's name
+    const neighbor =
+      direction === "left" ? nameList[nIndex - 1] : nameList[nIndex + 1];
+
+    // Step: move the input task, to the neighbor's task list
+    const copyOfTaskList = deepCopyOfTaskList(taskListByName);
+    copyOfTaskList[name].splice(tIndex, 1);
+    copyOfTaskList[neighbor].push(task);
+
+    // Step: update the state, taskList
+    this.setState({
+      taskListByName: copyOfTaskList,
     });
   };
 
   render() {
-    const { data } = this.state;
+    const { taskListByName, nameList } = this.state;
     //
     return (
       <div>
         <div className="Lane-List">
-          {Object.keys(data).map((name) => (
+          {nameList.map((name) => (
             <Lane
               name={name}
-              tasks={data[name]}
+              tasks={taskListByName[name]}
               handleChange={this.handleChange}
               handleClickToAddTask={this.handleClickToAddTask}
+              handleClickOnArrow={this.handleClickOnArrow}
             />
           ))}
         </div>
