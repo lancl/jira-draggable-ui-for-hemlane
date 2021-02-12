@@ -8,13 +8,16 @@ import TaskCard from "./TaskCard";
 // Each Lane: name; then task(s) as a list
 const Lane = ({
   name,
+  nIndex,
   tasks,
   handleChange,
   handleClickToAddTask,
   handleClickOnArrow,
 }) => (
   <div className="Lane">
-    <div className="Lane-Name">{name}</div>
+    <div className="Lane-Name">
+      {nIndex + 1}. {name}
+    </div>
 
     {/* List of current task cards */}
     <ul>

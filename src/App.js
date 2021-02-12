@@ -8,6 +8,7 @@ const DEFAULT_TASK_LIST = {
   Brad: ["buy meat", "buy vegi"],
   Bob: ["buy meat", "buy vegi"],
   Thomas: ["buy meat", "buy vegi"],
+  Linda: ["buy rice"],
 };
 
 // A helper function: return a deep copy of the input state
@@ -24,7 +25,7 @@ class App extends Component {
     super(props);
     this.state = {
       taskListByName: DEFAULT_TASK_LIST, // Start with the default data
-      nameList: ["Winnie", "Brad", "Bob", "Thomas"], // Order of the lanes
+      nameList: Object.keys(DEFAULT_TASK_LIST), // Order of the lanes
       newTaskByName: {},
     };
   }
@@ -91,9 +92,10 @@ class App extends Component {
     return (
       <div>
         <div className="Lane-List">
-          {nameList.map((name) => (
+          {nameList.map((name, index) => (
             <Lane
               name={name}
+              nIndex={index}
               tasks={taskListByName[name]}
               handleChange={this.handleChange}
               handleClickToAddTask={this.handleClickToAddTask}
