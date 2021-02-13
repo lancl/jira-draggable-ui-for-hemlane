@@ -3,16 +3,16 @@
   Note: flex-wrap lets the lanes flow to the second row (and beyond)
 */
 .Lane-List {
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
   /*  */
-  margin: 10px;
+  /* margin: 10px; */
   font-size: 18px;
 }
 
 /* Each lane: for a person */
 .Lane {
-  width: 20%;
+  /* width: 20%; */
   margin: 15px;
   padding: 5px;
   /*  */
@@ -30,12 +30,16 @@
 
 .New-Task-Input {
   height: 25px;
-  margin-top: 10px;
+  margin: 5px;
   width: 50%;
 }
 
 .New-Task-Button {
   margin: 5px;
+}
+
+.Task-List {
+  height: 120px;
 }
 
 .Task-Card button {

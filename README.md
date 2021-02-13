@@ -13,6 +13,11 @@ These are provided by Bihn (SWE on the team).
    Note that for entering a new task, B suggested using `Window.prompt()`, whereas I used `<input>`.
 3. Feature: shift task from 1 person to another
 
+In addition, I added some bonus feature(s).
+
+4. Drag and drop: to re-arrange the lanes/persons, in an intuitive way
+   Why: this UI feature is quite common: not only for task management, but also for notes (e.g. [Google Keep](https://keep.google.com/)).
+
 ### Screenshot of UI
 
 ![Screenshot](./screenshot-ui-specs.png)
@@ -39,7 +44,26 @@ My data-structure design for `this.state.taskListByName`:
 
 About: 1 lane per person; each lane has a list of tasks/cards.
 
-### 2(b): My screenshots (per progress)
+### 2(b) My bonus feature, drag and drop; the learning(s)
+
+How: I coded this feature from scratch (instead of importing an npm module)
+
+My ref links (from research): [answer on stackoverflow.com](https://stackoverflow.com/questions/20926551/recommended-way-of-making-react-component-div-draggable).
+
+Below are the key things added, to enable this feature.
+
+- React states were added: e.g. `dragging` and `nIndexDragged`.
+
+- Lifecycle method: `componentDidUpdate()` was added, to detect the start and end of dragging.
+
+- Several mouse events were added: `onMouseDown()`, `onMouseMove()`, `onMouseOver()` and `onMouseUp()`.
+  Note that Web APIs also have methods with closer match, such as [onDrag()](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/ondrag).
+
+- A lot of CSS tweaking.
+  -- In particular, I ussed CSS in JS (in `App.js` and `Lane.js`), because Standard CSS is not enough (to dynamically set lanes' positions).
+  -- The details: I added a helper function, `generateLaneStyles()`, which (1) sets up the position of the lanes at the start and (2) updates the lanes' styles along with drag-and-drop (of a lane).
+
+### 2(c): My screenshots (per progress)
 
 For spec 1 and spec 2
 
@@ -47,3 +71,7 @@ For spec 1 and spec 2
 
 For all specs
 ![For all specs](./screenshot-2.png)
+
+With bonus feature: drag and drop (plus colored lanes)
+![drag and drop](./screenshot-3a.png)
+![drag and drop](./screenshot-3b.png)

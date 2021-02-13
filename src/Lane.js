@@ -1,26 +1,35 @@
 // About: 1 lane per person/worker
 // [TBD] Try another option of adding a new task, by Window.prompt()
-// [TBD] Try adding the UI feature, drag and drop, for the lanes' order
 
 import React from "react";
 import TaskCard from "./TaskCard";
 
-// Each Lane: name; then task(s) as a list
+// Note on Lane's CSS styling: uses both option 1 (standard CSS) and
+// option 2 (inline CSS, with the prop style from App.js)
 const Lane = ({
   name,
   nIndex,
   tasks,
+  style,
+  //
   handleChange,
   handleClickToAddTask,
   handleClickOnArrow,
+  onMouseDown,
+  onMouseOver,
 }) => (
-  <div className="Lane">
-    <div className="Lane-Name">
-      {nIndex + 1}. {name}
+  <div className="Lane" style={style}>
+    <div
+      className="Lane-Name"
+      onMouseDown={(e) => onMouseDown(e, nIndex)}
+      onMouseOver={(e) => onMouseOver(e, nIndex)}
+    >
+      {/* {nIndex + 1}. {name} */}
+      {name}
     </div>
 
     {/* List of current task cards */}
-    <ul>
+    <ul className="Task-List">
       {tasks.map((task, index) => (
         <TaskCard
           task={task}
@@ -40,7 +49,7 @@ const Lane = ({
     ></input>
     <button
       className="New-Task-Button"
-      onClick={() => handleClickToAddTask(name)}
+      onClick={(e) => handleClickToAddTask(e, name)}
     >
       Add a card
     </button>
