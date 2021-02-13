@@ -220,8 +220,6 @@ class App extends Component {
   };
 
   handleClickToAddTask = (e, name) => {
-    window.prompt("Msg");
-    //
     const { newTaskByName, taskListByName } = this.state;
     const newTask = newTaskByName[name];
     const copyOfTaskList = deepCopyOfTaskList(taskListByName);

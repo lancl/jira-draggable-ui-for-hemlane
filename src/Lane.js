@@ -1,6 +1,4 @@
 // About: 1 lane per person/worker
-// [TBD] Try another option of adding a new task, by Window.prompt()
-
 import React from "react";
 import TaskCard from "./TaskCard";
 
